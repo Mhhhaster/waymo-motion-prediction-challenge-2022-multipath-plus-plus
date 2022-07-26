@@ -92,10 +92,10 @@ def dict_to_cuda(d):
                     'road_network_embeddings',
                     'target/future/xy', 'target/future/valid'])
     for k in d.keys():
-        if k not in passing_keys:
+        if k not in passing_keys:             #如果不是要传递的key，不用传递
             continue
-        v = d[k]
-        if not isinstance(v, torch.Tensor):
+        v = d[k] 
+        if not isinstance(v, torch.Tensor):   #如果不是tensor那么不用传到cuda上
             continue
         d[k] = d[k].cuda()
 

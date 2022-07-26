@@ -16,9 +16,15 @@ def get_visualizers(visualizers_config):
         visualizers.append(get_visualizer(renderer["renderer_name"], renderer["renderer_config"]))
     return visualizers
 
-def create_dataset(datapath, n_shards, shard_id):
-    files = os.listdir(datapath)
-    dataset = tf.data.TFRecordDataset(
+def create_dataset(datapath, n_shards, shard_id):       #
+    files = os.listdir(datapath)                        #返回指定目录下的所有文件及文件夹名称
+    '''
+    https://www.tensorflow.org/api_docs/python/tf/data/TFRecordDataset
+    继承自dataset: https://zhuanlan.zhihu.com/p/30751039
+    同时支持从内存(原placeholder)和硬盘(原queue)中读取数据
+    dataset是“元素”的有序列表，示例化一个Iterator，然后对Iterator进行迭代
+    '''
+    dataset = tf.data.TFRecordDataset(                  
         [os.path.join(datapath, f) for f in files], num_parallel_reads=1
     )
     if n_shards > 1:

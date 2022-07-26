@@ -11,14 +11,15 @@ def main():
     visualizers_config = get_config(args.config)
     visualizers = get_visualizers(visualizers_config)
 
-    p = multiprocessing.Pool(args.n_jobs)
+    p = multiprocessing.Pool(args.n_jobs)   #创建 n_jobs个子进程
     processes = []
     k = 0
     for data in tqdm(dataset.as_numpy_iterator()):
         k += 1
         data = tf.io.parse_single_example(data, generate_features_description())
+        
         processes.append(
-            p.apply_async(
+            p.apply_async(   #apply会阻塞主进程并按顺序执行子进程，apply_async异步执行子进程，传入函数名+参数列表
                 merge_and_save,
                 kwds=dict(
                     visualizers=visualizers,
