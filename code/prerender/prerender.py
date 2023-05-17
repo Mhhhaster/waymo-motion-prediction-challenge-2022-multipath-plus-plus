@@ -5,6 +5,7 @@ from utils.prerender_utils import get_visualizers, create_dataset, parse_argumen
 from utils.utils import get_config
 from utils.features_description import generate_features_description
 
+
 def main():
     args = parse_arguments()
     dataset = create_dataset(args.data_path, args.n_shards, args.shard_id)
@@ -34,3 +35,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

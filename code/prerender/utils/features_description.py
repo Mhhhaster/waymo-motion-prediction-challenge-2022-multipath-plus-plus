@@ -32,7 +32,7 @@ _values_number_for_timezone = {
     "past": 10
 }
 
-def _generate_agent_features_by_timezone(timezone):
+def _generate_agent_features_by_timezone(timezone): #作用：生成agent的特征
     assert timezone in ["current", "future", "past"]
     n_values = _values_number_for_timezone[timezone]
     return {
@@ -89,7 +89,7 @@ _traffic_light_features = {
         tf.io.FixedLenFeature([10, 16], tf.float32, default_value=None),
 }
 
-def generate_features_description():
+def generate_features_description(): #作用：生成特征描述
     features_description = {}
     features_description.update(_roadgraph_features)
     features_description.update(_general_state_features)

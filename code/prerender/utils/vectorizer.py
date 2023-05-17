@@ -11,7 +11,7 @@ class Renderer(ABC):
         pass
 
 
-class SegmentFilteringPolicy:
+class SegmentFilteringPolicy: #作用：对segment进行过滤
     def __init__(self, config):
         self._config = config
 
@@ -34,7 +34,7 @@ class SegmentFilteringPolicy:
         raise Exception(f"Unknown segment filtering policy {self._config['policy'] }")
 
 
-class TargetAgentFilteringPolicy:
+class TargetAgentFilteringPolicy: #作用：对agent进行过滤
     def __init__(self, config):
         self._config = config
 
@@ -71,7 +71,7 @@ class TargetAgentFilteringPolicy:
             return self._get_fully_available_agents_without_interesting(data, i)
         raise Exception(f"Unknown agent filtering policy {self._config['policy'] }")
 
-class MultiPathPPRenderer(Renderer):
+class MultiPathPPRenderer(Renderer): #作用：对数据进行预处理，然后对数据进行向量化
     def __init__(self, config):
         self._config = config
         self.n_segment_types = 20
@@ -255,7 +255,7 @@ class MultiPathPPRenderer(Renderer):
             return "left_u_turn"
         return "left_turn"
 
-    def render(self, data):
+    def render(self, data): # 作用：将数据转换为模型可用的格式——字典
         array_of_scene_data_dicts = []
         self._preprocess_data(data)
         road_network_info = self._prepare_roadnetwork_info(data)

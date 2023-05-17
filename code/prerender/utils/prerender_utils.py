@@ -16,7 +16,7 @@ def get_visualizers(visualizers_config):
         visualizers.append(get_visualizer(renderer["renderer_name"], renderer["renderer_config"]))
     return visualizers
 
-def create_dataset(datapath, n_shards, shard_id):       #
+def create_dataset(datapath, n_shards, shard_id):       #作用：创建dataset
     files = os.listdir(datapath)                        #返回指定目录下的所有文件及文件夹名称
     '''
     https://www.tensorflow.org/api_docs/python/tf/data/TFRecordDataset
@@ -31,7 +31,7 @@ def create_dataset(datapath, n_shards, shard_id):       #
         dataset = dataset.shard(n_shards, shard_id)
     return dataset
 
-def parse_arguments():
+def parse_arguments(): #作用：解析命令行参数
     parser = argparse.ArgumentParser()
     parser.add_argument("--data-path", type=str, required=True, help="Path to raw data")
     parser.add_argument("--output-path", type=str, required=True, help="Path to save data")
@@ -50,7 +50,7 @@ def generate_filename(scene_data):
     agent_type = scene_data["target/agent_type"]
     return f"scid_{scenario_id}__aid_{agent_id}__atype_{agent_type.item()}.npz"
 
-def merge_and_save(visualizers, data, output_path):
+def merge_and_save(visualizers, data, output_path): #作用：将数据转换为numpy格式并保存
     data_to_numpy(data)
     preprocessed_dicts = [visualizer.render(data) for visualizer in visualizers]
     for scene_number in range(len(preprocessed_dicts[0])):

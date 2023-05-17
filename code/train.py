@@ -1,10 +1,13 @@
+# torch库
 import torch
 from torch import nn
 from torch.optim import Adam
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 # 调整学习率 当参考的评价指标停止改进时,降低学习率,factor为每次下降的比例,训练过程中,当指标连续patience次数还没有改进时,降低学习率;
+
 import numpy as np
 from tqdm import tqdm
+
 # 已经定义的model模块
 from model.modules import MLP, CGBlock, MCGBlock, HistoryEncoder
 from model.multipathpp import MultiPathPP
@@ -14,6 +17,7 @@ from model.data import get_dataloader, dict_to_cuda, normalize
 from model.losses import pytorch_neg_multi_log_likelihood_batch, nll_with_covariances
 # 工具类
 from prerender.utils.utils import data_to_numpy, get_config
+
 import subprocess
 from matplotlib import pyplot as plt
 import os
@@ -51,16 +55,17 @@ def get_git_revision_short_hash():
 # 指定config 用来debug
 # 获取命令行传入的配置
 # config = get_config(sys.argv[1])
-config = get_config("/home/wei.wang39/code/waymo-motion-prediction-challenge-2022-multipath-plus-plus/code/configs/final_RoP_Cov_Single.yaml")
+config = get_config("configs/final_RoP_Cov_Single.yaml")
 # alias = sys.argv[1].split("/")[-1].split(".")[0]
-alias = "/home/wei.wang39/code/waymo-motion-prediction-challenge-2022-multipath-plus-plus/code/configs/final_RoP_Cov_Single.yaml".split("/")[-1].split(".")[0]
+alias = "configs/final_RoP_Cov_Single.yaml".split("/")[-1].split(".")[0]
 # try:
 #     models_path = os.path.join("../models", f"{alias}__{get_git_revision_short_hash()}")
 #     os.mkdir(tb_path)
 #     os.mkdir(models_path)
 # except:
 #     pass
-models_path = "/home/wei.wang39/code/waymo-motion-prediction-challenge-2022-multipath-plus-plus/models"
+models_path = "../models"
+
 # 获取最新的权重
 last_checkpoint = get_last_file(models_path)
 
